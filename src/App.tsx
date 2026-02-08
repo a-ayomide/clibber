@@ -76,7 +76,7 @@ function App(): React.JSX.Element {
             name="Home"
             component={HomeScreen}
             options={{
-              title: 'Clibber',
+              title: 'Clipboard History',
               headerLargeTitle: true,
             }}
           />

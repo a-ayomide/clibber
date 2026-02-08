@@ -143,6 +143,7 @@ export function HomeScreen({navigation}: HomeScreenProps): React.JSX.Element {
         data={items}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
+        contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={
           items.length === 0 ? styles.emptyContainer : styles.listContent
         }
