@@ -1,4 +1,5 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
+import {AppState, AppStateStatus} from 'react-native';
 import {ClipboardItem} from '../types';
 import {
   getAllItems,
@@ -50,6 +51,26 @@ export function useClipboardHistory(): UseClipboardHistoryReturn {
 
   useEffect(() => {
     loadItems();
+  }, [loadItems]);
+
+  // Auto-save clipboard when app comes to foreground
+  const appStateRef = useRef(AppState.currentState);
+  useEffect(() => {
+    const handleAppStateChange = async (nextAppState: AppStateStatus) => {
+      if (
+        appStateRef.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        const saved = await saveCurrentClipboard();
+        if (saved) {
+          await loadItems();
+        }
+      }
+      appStateRef.current = nextAppState;
+    };
+
+    const subscription = AppState.addEventListener('change', handleAppStateChange);
+    return () => subscription.remove();
   }, [loadItems]);
 
   const refresh = useCallback(async () => {
