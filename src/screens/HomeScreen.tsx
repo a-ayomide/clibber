@@ -117,7 +117,7 @@ export function HomeScreen({navigation}: HomeScreenProps): React.JSX.Element {
     });
   }, [navigation]);
 
-  if (loading && items.length === 0) {
+  if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#007AFF" />

@@ -9,8 +9,6 @@ import {generatePreview} from '../utils/formatters';
 SQLite.enablePromise(true);
 
 const DATABASE_NAME = 'clibber.db';
-const DATABASE_VERSION = '1.0';
-const DATABASE_DISPLAY_NAME = 'Clibber Clipboard Database';
 
 let database: SQLiteDatabase | null = null;
 
